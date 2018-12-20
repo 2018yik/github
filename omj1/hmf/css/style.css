@@ -1,0 +1,224 @@
+a {
+	width:50%;
+	margin:1%;
+	font-size:40px;
+}
+
+
+table {
+	width:50%;
+	margin:1%;
+	border-collapse: collapse;
+	
+}
+
+tr th { 
+  border: 3px solid black; 
+  text-align: center; 
+  height:5%;
+  width:5%;
+  font-size:30px;
+  
+}
+
+tr td { 
+  border: 3px solid black; 
+  text-align: center; 
+  height:5%;
+  width:5%;
+  font-size:30px;
+  
+}
+#inweek table {
+	width:2200px;
+	margin:1%;
+	table-layout:fixed;
+	
+}
+
+#cust table {
+	margin:1%;
+	table-layout:fixed;
+}
+
+#cust tr,th,td {
+	 border: 3px solid black; 
+  text-align: center; 
+  width:15%;
+  font-size:30px;
+}
+
+
+#upweek table {
+	width:4300px;
+	margin:1%;
+	table-layout:fixed;
+}
+
+#jj table {
+	width:80%;
+	margin:1%;
+	table-layout:fixed;
+}
+#jj tr, th,td {
+	border: 3px solid black; 
+  text-align: center; 
+  width:25%;
+  font-size:30px;
+}
+#upweek tr, th,td {
+	border: 3px solid black; 
+  text-align: center; 
+  width:15%;
+  font-size:30px;
+}
+#inweek tr, th,td {
+ border: 3px solid black; 
+  text-align: center; 
+  width:15%;
+  font-size:30px;
+}
+
+
+#display {
+	width:80%;
+	margin:1%;
+	border-collapse: collapse;
+}
+
+#display tr td {
+	border: 3px solid black; 
+  text-align: center;
+  height:2%;
+  width:5%; 
+  font-size:12px;
+}
+
+#display tr th {
+	border: 3px solid black; 
+  text-align: center; 
+  height:2%;
+  width:5%;
+  font-size:12px;
+}
+
+
+select {
+	width:40%;
+	height:10%;
+	font-size:40px;
+        box-sizing: border-box;
+     
+
+}
+
+.wtf select {
+	width:20%;
+	height:10%;
+	font-size:30px;
+
+}
+
+
+
+input[type=submit] {
+    width: 40%;
+	height:10%;
+	font-size:40px;
+}
+
+img {
+	border: 10px solid #000000;
+	 border-radius: 4px;
+    padding: 5%;
+	width:15%;
+}
+
+
+/* Hide the browser's default radio button */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-size: 40px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 60px;
+    background-color: #eee;
+    border-radius: 80%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+table.fixed1 { 
+table-layout:fixed; 
+
+}
+
+table.fixed3 { 
+table-layout:fixed; 
+}
+table.fixed3 th { 
+width:150px;  }
+
+table.fixed1 th { 
+width:80px;  }
+
+table.fixed1 th.B { 
+color:blue; }
+table.fixed1 th.R { 
+color:red; }
+
+table.fixed2 { 
+  table-layout:fixed; 
+
+}
+
+table.fixed2 th { width:80px;  }
+table.fixed2 th.B {color:blue;}
+table.fixed2 th.R {  color:red; }
+
+
