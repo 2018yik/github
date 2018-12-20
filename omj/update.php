@@ -33,34 +33,47 @@
 <body>
 <?php
 require('header.php');
+include('process/function.php');
+
 
 ?>
 <div class='center'>
 <?php
 
-if (isset($_COOKIE['role'])) {
+if (isset($_COOKIE['role']) AND isset($_GET['id'])) {
 	require('process/connectsql.php');
+	$uid = getuserid($_COOKIE['ac'],$db);
+	$twid = $_GET['id'];
+	$query = "Select * From takeaway where userid = $uid and twid = $twid";
+	mysqli_set_charset($db, "utf8");
+	$result = mysqli_query($db,$query);
+	$count = mysqli_num_rows($result);
+	
+	if ($count < 1) {
+		echo "<script>window.location.href='/omj/Profile.php'</script>";
+	} else {
+		$row = mysqli_fetch_assoc($result);
 	?>
-<form action='process/insertdata.php' method='Post' accept-charset="UTF-8" enctype="multipart/form-data">
+<form action='process/updatedata.php' method='Post' accept-charset="UTF-8" enctype="multipart/form-data">
 <label style='color:red'>圖最少要有1張 名字必填 checkbox一定要最少各1 時間唔可以--:-- 其他可不填</label>
-<label>Name</label><input type='text' name='name' id='name'></input><br>
-<label>tel</label><input type='text' name='tel' id='tel'></input><br>
-<label>Photo1</label><input type='file' name='photo1' id='photo1'></input><br>
-<label>Photo2</label><input type='file' name='photo2' id='photo2'></input><br>
-<label>Photo3</label><input type='file' name='photo3' id='photo3'></input><br>
-<label>Photo4</label><input type='file' name='photo4' id='photo4'></input><br>
-<label>Photo5</label><input type='file' name='photo5' id='photo5'></input><br>
-<label>Start Time</label><input type='time' name='stime' id='stime' value='00:00'></input><br>
-<label>End Time</label><input type='time' name='etime' id='etime' value='23:59'></input><br>
-<label>Address</label><input type='text' name='address' id='address'></input><br>
-<label>description</label><input type='text' name='description' id='description'></input><br>
+<label>Name</label><input type='text' name='name' id='name' value= '<?= $row['name']; ?>'></input><br>
+<label>tel</label><input type='text' name='tel' id='tel' value= '<?= $row['tel']; ?>'></input><br>
+<label>Start Time</label><input type='time' name='stime' id='stime' value= '<?= explode("@",$row['time'])[0]; ?>'></input><br>
+<label>End Time</label><input type='time' name='etime' id='etime' value= '<?= explode("@",$row['time'])[1]; ?>'></input><br>
+<label>Address</label><input type='text' name='address' id='address' value= '<?= $row['address']; ?>'></input><br>
+<label>description</label><input type='text' name='description' id='description' value= '<?= $row['description']; ?>'></input><br>
 
 <label>地區</label>
 <select id='district' name='district'>
 <?php
+//get district
+
+
+
 $darray = array("中西區","離島","灣仔","東區","南區","油尖旺","深水埗","九龍城","黃大仙","觀塘","西貢","沙田","大埔","北區","元朗","荃灣","葵青","屯門");
 for ($i = 0; $i < count($darray); $i++) {
 	echo "<option value='$i'>".$darray[$i]."</option>";
+	
 }
 
 ?>
@@ -78,31 +91,72 @@ for ($i = 0; $i < count($darray); $i++) {
 <br>
 <a>種類A</a>
 <?php
+$taarray = array();
+
+$taquery = "Select * From takeawaytype,type where takeawaytype.tid = type.tid and takeawaytype.twid = $twid"; //type
+mysqli_set_charset($db, "utf8");
+$taresult = mysqli_query($db,$taquery);
+while ($row = mysqli_fetch_assoc($taresult)) {
+	array_push($taarray,$row['type']);
+}
+
+
 $query="Select * From type ";
 mysqli_set_charset($db, "utf8");
 $result = mysqli_query($db,$query);
 while ($row = mysqli_fetch_assoc($result)) {
+	$checker = false;
+	for ($i = 0; $i < count($taarray); $i++) {
+		if ($row['type'] == $taarray[$i]) {
+			$checker = true;
+		}
+	}
+	
+	if ($checker == true) {
+		echo "<input type='checkbox' name='type[]' value='".$row['type']."' style='zoom:2.5' checked><a style='font-size:20px' checked>".$row['type']."</a>";
+	} else {
 	echo "<input type='checkbox' name='type[]' value='".$row['type']."' style='zoom:2.5' ><a style='font-size:20px'>".$row['type']."</a>";
+	}
 	
 }
 
 echo "<br><br><br><br>";
 
 echo "<a>食物種類</a>";
+
+$taquery = "Select * From takeawayfoodtype,foodtype where takeawayfoodtype.ftid = foodtype.ftid and takeawayfoodtype.twid = $twid"; //type
+mysqli_set_charset($db, "utf8");
+$taresult = mysqli_query($db,$taquery);
+while ($row = mysqli_fetch_assoc($taresult)) {
+	array_push($taarray,$row['fname']);
+}
+
 $query="Select * From foodtype ";
 mysqli_set_charset($db, "utf8");
 $result = mysqli_query($db,$query);
 $counter = 0;
 while ($row = mysqli_fetch_assoc($result)) {
+	$checker = false;
+	for ($i = 0; $i < count($taarray); $i++) {
+	if ($row['fname'] == $taarray[$i]) {
+			$checker = true;
+		}
+	}
+	
 	if ($counter %6 ==0) {
 		echo "<br>";
 	}
+	if ($checker == true) {
+		echo "<input type='checkbox' name='foodtype[]' value='".$row['fname']."' style='zoom:2.5' checked><a style='font-size:20px'>".$row['fname']."</a>";
+	} else {
 	echo "<input type='checkbox' name='foodtype[]' value='".$row['fname']."' style='zoom:2.5' ><a style='font-size:20px'>".$row['fname']."</a>";
+	}
 	$counter = $counter +1;
 	
 }
 
 echo "<br>";
+echo "<input type='hidden' id='twida' name='twida' value='$twid'>";
 
 
 
@@ -119,6 +173,7 @@ echo "<br>";
 </form>
 
 <?php
+	}
 }
 ?>
 

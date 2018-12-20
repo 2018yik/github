@@ -1,8 +1,9 @@
 裝wampserver
+
 把omj folder 放係www
 
 在phpmyadmin起database叫omj
 
 先跑createDatabase.php -> insertData.php -> insertData1.php
 
-就可以用
+就可以開始用

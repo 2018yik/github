@@ -36,6 +36,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 echo "<br>";
 echo "<input type='submit' name='submit' id='submit'></input>";
+echo "</form>";
 if (isset($_GET['ds'])) {
 $ds = $_GET['ds'];
 

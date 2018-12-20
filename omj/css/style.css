@@ -52,8 +52,9 @@ div.center a{
 	font-size:24px;
 }
 div.wrap {
-    width: 700px;
+    width: 70%;
     border: 1px solid #f00;
+	 margin:30px auto;
     height: 350px;
     position: relative;
 }
